@@ -6,9 +6,8 @@ type GameBoardProps = {
     gameBoard: string[][]; // Represents the game board
   };
 
-  export function GameBoard({ guessedLetter, gameBoard }: GameBoardProps) {
+  export function GameBoard({ gameBoard, guessedLetter }: GameBoardProps) {
     // const [gameBoard, setgameBoard] = useState<string[][]>(new Array(6).fill(new Array(5).fill('')));
-  console.log('gambeoard', guessedLetter)
 
   return (
     <View style={styles.board}>
