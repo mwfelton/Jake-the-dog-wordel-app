@@ -45,8 +45,6 @@ const styles = StyleSheet.create({
   keyboard: {
     width: '100%', // Ensures the keyboard container spans the full width of the screen
     alignItems: 'center',
-    borderWidth: 2, // Adds a border around the keyboard
-    borderColor: 'black',
     paddingHorizontal: '3%', // Adds padding to prevent keys from touching the edges
   },
   row: {
@@ -54,8 +52,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 10,
-    borderWidth: 2, // Adds a border around the keyboard
-    borderColor: 'red',
   },
   key: {
     width: keyWidth, // Dynamically set width

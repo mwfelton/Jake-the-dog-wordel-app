@@ -8,14 +8,13 @@ type GameBoardProps = {
 };
 
 export function GameBoard({ gameBoard, wordToGuess, gameRound }: GameBoardProps) {
-  
+
   const getBackgroundColor = (letter: string, index: number) => {
     if (letter === wordToGuess[index]) {
       return 'green'; // Correct position
     } else if (wordToGuess.includes(letter)) {
       return 'yellow'; // Wrong position
     }
-    return 'gray'; // Not in word
   };
   
 
