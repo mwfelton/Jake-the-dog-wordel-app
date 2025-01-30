@@ -5,89 +5,38 @@ import Keyboard from '@/components/gameScreen/Keyboard';
 
 const GameScreen = () => {
   const [gameBoard, setGameBoard] = useState<string[][]>(Array.from({ length: 6 }, () => Array(5).fill('')));
-  const [wordToGuess, setWordToGuess] = useState('REACT')
+  const [wordToGuess, setWordToGuess] = useState('REACT');
   const [gameRound, setGameRound] = useState(0);
-  const [gameOver, setGameOver] = useState(false); // New state for game over
+  const [gameOver, setGameOver] = useState(false);
   const [gameMessage, setGameMessage] = useState('');
-  //   if (gameOver) return; // Prevent input if game is over
-
-  //   const currentRow = [...gameBoard[gameRound]];
-
-  //   if (key === 'Delete') {
-  //     const lastIndex = currentRow.findIndex(item => item === '');
-
-  //     if (lastIndex === -1) {
-  //       currentRow[currentRow.length - 1] = '';
-  //     } else {
-  //       currentRow[lastIndex - 1] = '';
-  //     }
-  
-  //     const updatedGameBoard = [...gameBoard];
-  //     updatedGameBoard[gameRound] = currentRow;
-  //     setGameBoard(updatedGameBoard);
-  //   } else {
-  //     // Handle letter input
-  //     const nextIndex = currentRow.findIndex((cell) => cell === '');
-
-  //     if (nextIndex !== -1) {
-  //       currentRow[nextIndex] = key;
-  
-  //       const updatedGameBoard = [...gameBoard];
-  //       updatedGameBoard[gameRound] = currentRow;
-  //       setGameBoard(updatedGameBoard);
-  //     }
-  //   }
-    
-  //   if (key === 'Enter') {
-  //     handleSubmit(currentRow); // Call handleSubmit when Enter is pressed
-  //   }
-  // };
 
   const handleKeyPress = (key: string) => {
     setGameMessage('');
-
     if (gameOver) return; // Prevent input if game is over
 
     const currentRow = [...gameBoard[gameRound]];
 
     if (key === 'Delete') {
-      const lastIndex = currentRow.findIndex(item => item === '');
-      if (lastIndex === -1) {
-        currentRow[currentRow.length - 1] = '';
-      } else {
+      const lastIndex = currentRow.lastIndexOf('');
+      if (lastIndex > 0) {
         currentRow[lastIndex - 1] = '';
+      } else {
+        currentRow[currentRow.length - 1] = '';
       }
-  
-      const updatedGameBoard = [...gameBoard];
-      updatedGameBoard[gameRound] = currentRow;
-      setGameBoard(updatedGameBoard);
     } else if (key === 'Enter') {
       handleSubmit(currentRow);
     } else {
-      const nextIndex = currentRow.findIndex((cell) => cell === '');
+      const nextIndex = currentRow.indexOf('');
       if (nextIndex !== -1) {
-        currentRow[nextIndex] = key;
-        const updatedGameBoard = [...gameBoard];
-        updatedGameBoard[gameRound] = currentRow;
-        setGameBoard(updatedGameBoard);
+        currentRow[nextIndex] = key.toUpperCase(); // Ensure uppercase letters
       }
     }
+
+    const updatedGameBoard = [...gameBoard];
+    updatedGameBoard[gameRound] = currentRow;
+    setGameBoard(updatedGameBoard);
   };
 
-  // const handleSubmit = (currentRow: string[]) => {
-  //   const guessedWord = currentRow.join(''); // Join the array to form the guessed word
-  //   const wordToGuess = 'REACT'; // Hardcoded word to guess
-  
-  //   if (guessedWord === wordToGuess) {
-  //     console.log('Correct guess!');
-  //     // You can add additional logic here, such as progressing to the next round
-  //   } else {
-  //     console.log('Incorrect guess. Try again!');
-  //     setGameRound(prevRound => prevRound + 1); // Fix here
-  //     // You can add additional logic here, such as showing feedback for the guess
-  //   }
-  // };
-  
   const handleSubmit = (currentRow: string[]) => {
     const guessedWord = currentRow.join('');
 
@@ -114,25 +63,26 @@ const GameScreen = () => {
     setGameMessage('');
   };
 
-return (
-  <View style={styles.container}>
-  <GameBoard guessedLetter={[gameBoard[gameRound]]} gameBoard={gameBoard} />
-  <Keyboard handleKeyPress={handleKeyPress} />
+  return (
+    <View style={styles.container}>
+      {/* Removed guessedLetter prop */}
+      <GameBoard gameBoard={gameBoard} wordToGuess={wordToGuess} gameRound={gameRound} />
+      <Keyboard handleKeyPress={handleKeyPress} />
 
-  {gameMessage !== '' && (
+      {gameMessage !== '' && (
         <Text style={styles.gameMessage}>{gameMessage}</Text>
       )}
 
-  {gameOver && (
-    <View style={styles.gameOverContainer}>
-      <Text style={styles.gameOverText}>{gameMessage}</Text>
-      <TouchableOpacity style={styles.newGameButton} onPress={handleNewGame}>
-        <Text style={styles.newGameButtonText}>New Game</Text>
-      </TouchableOpacity>
+      {gameOver && (
+        <View style={styles.gameOverContainer}>
+          <Text style={styles.gameOverText}>{gameMessage}</Text>
+          <TouchableOpacity style={styles.newGameButton} onPress={handleNewGame}>
+            <Text style={styles.newGameButtonText}>New Game</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
-  )}
-</View>
-);
+  );
 };
 
 const styles = StyleSheet.create({
@@ -146,12 +96,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'center',
   },
-  gameOverText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-  },
   newGameButton: {
     marginTop: 15,
     backgroundColor: '#ff9800',
@@ -164,6 +108,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
+  gameOverText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
   gameMessage: {
     marginTop: 10,
     fontSize: 18,
@@ -171,6 +121,6 @@ const styles = StyleSheet.create({
     color: 'yellow',
     textAlign: 'center',
   },
-});
+})
 
 export default GameScreen;

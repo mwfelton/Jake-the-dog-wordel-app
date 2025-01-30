@@ -1,20 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 type GameBoardProps = {
-    guessedLetter: string[][];
-    gameBoard: string[][]; // Represents the game board
-  };
+  gameBoard: string[][]; // Represents the game board
+  wordToGuess: string; // The target word
+  gameRound: number; // Current round
+};
 
-  export function GameBoard({ gameBoard, guessedLetter }: GameBoardProps) {
-    // const [gameBoard, setgameBoard] = useState<string[][]>(new Array(6).fill(new Array(5).fill('')));
+export function GameBoard({ gameBoard, wordToGuess, gameRound }: GameBoardProps) {
+  
+  const getBackgroundColor = (letter: string, index: number) => {
+    if (letter === wordToGuess[index]) {
+      return 'green'; // Correct position
+    } else if (wordToGuess.includes(letter)) {
+      return 'yellow'; // Wrong position
+    }
+    return 'gray'; // Not in word
+  };
+  
 
   return (
     <View style={styles.board}>
       {gameBoard.map((row, rowIndex) => (
         <View key={rowIndex} style={styles.row}>
           {row.map((letter, colIndex) => (
-            <View key={colIndex} style={styles.box}>
+            <View 
+              key={colIndex} 
+              style={[
+                styles.box, 
+                rowIndex < gameRound ? { backgroundColor: getBackgroundColor(letter, colIndex) } : {}
+              ]}
+            >
               <Text style={styles.boxText}>{letter}</Text>
             </View>
           ))}
@@ -22,7 +38,7 @@ type GameBoardProps = {
       ))}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   board: {
