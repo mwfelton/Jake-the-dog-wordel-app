@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Your custom apps
-    'words',  # This is the app we just created
+    'words',  
 ]
 
 MIDDLEWARE = [
