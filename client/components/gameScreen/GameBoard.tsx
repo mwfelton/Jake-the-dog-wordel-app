@@ -41,7 +41,7 @@ export function GameBoard({ gameBoard, wordToGuess, gameRound }: GameBoardProps)
 
 const styles = StyleSheet.create({
   board: {
-    marginTop: 50,
+    marginTop: 20,
     alignItems: 'center',
   },
   row: {
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   box: {
-    width: 50,
-    height: 50,
-    margin: 5,
+    width: 40,
+    height: 40,
+    margin: 3,
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
