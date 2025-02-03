@@ -4,20 +4,30 @@ import { View, Text, StyleSheet } from 'react-native';
 type GameBoardProps = {
   gameBoard: string[][]; // Represents the game board
   wordToGuess: string; // The target word
-  gameRound: number; // Current round
+  gameRound: number;
+  gameWon: boolean; // New prop to check if the game is won
 };
 
-export function GameBoard({ gameBoard, wordToGuess, gameRound }: GameBoardProps) {
+export function GameBoard({ gameBoard, wordToGuess, gameRound, gameWon }: GameBoardProps) {
 
-  const getBackgroundColor = (letter: string, index: number) => {
+  const getBackgroundColor = (letter: string, index: number, rowIndex: number) => {
+    if (gameWon && rowIndex === gameRound) {
+      return 'blue'; // The last submitted row turns blue if the game is won
+    }
+  
+    if (rowIndex >= gameRound) {
+      return 'transparent'; // Don't color the current typing row or future rows
+    }
+  
     if (letter === wordToGuess[index]) {
       return 'green'; // Correct position
     } else if (wordToGuess.includes(letter)) {
       return 'yellow'; // Wrong position
     }
+  
+    return 'transparent'; // Default case
   };
   
-
   return (
     <View style={styles.board}>
       {gameBoard.map((row, rowIndex) => (
@@ -27,7 +37,7 @@ export function GameBoard({ gameBoard, wordToGuess, gameRound }: GameBoardProps)
               key={colIndex} 
               style={[
                 styles.box, 
-                rowIndex < gameRound ? { backgroundColor: getBackgroundColor(letter, colIndex) } : {}
+                rowIndex < gameRound ? { backgroundColor: getBackgroundColor(letter, colIndex, rowIndex) } : gameWon ? { backgroundColor: getBackgroundColor(letter, colIndex, rowIndex) } : {}
               ]}
             >
               <Text style={styles.boxText}>{letter}</Text>
