@@ -1,51 +1,49 @@
 import { View, Text, StyleSheet, ImageBackground, Pressable } from 'react-native'
-import { useState } from 'react';
-import { useColorScheme } from '@/hooks/useColorScheme'; // Make sure this is imported correctly
+import { useTheme } from '@/contexts/ThemeContext'; // Make sure this path is correct
+import { useColorScheme } from '@/hooks/useColorScheme';
 import { Colors } from '@/constants/Colors';
-import { Link } from 'expo-router'
 
 export default function HomeScreen() {
-  const [theme, setTheme] = useState('light'); // Initialize the theme state
-  const colorScheme = useColorScheme() || theme; // Use custom theme if no colorScheme is provided
 
-  const toggleTheme = (selectedTheme: string) => {
-    setTheme(selectedTheme);
-  };
+  type ThemeName = keyof typeof Colors; // "jake" | "finn" | "bmo"
 
-  const backgroundColor =
-  theme === 'dark'
-    ? '#333'
-    : theme === 'medium'
-    ? '#666'
-    : '#FFF'; // Set background color based on selected theme
+  const { theme, setTheme } = useTheme();
+  const colorScheme = Colors[theme as ThemeName];
 
+  const backgroundColor = colorScheme.background;
+
+  // const toggleTheme = (selectedTheme: string) => {
+  //   setTheme(selectedTheme);
+  // };
 
     return (
       <View style={[styles.container, { backgroundColor }]}>
         <Text style={styles.title}>Wordel</Text>
         <Text style={styles.title}>With Jake the Dog</Text>
-  
+
+        <Text>Choose your theme</Text>
         <View style={styles.themeButtonsContainer}>
-          <Pressable
-            style={[styles.themeButton, theme === 'light' && styles.activeButton]}
-            onPress={() => setTheme('light')}
-          >
-            <Text style={styles.buttonText}>Light</Text>
-          </Pressable>
-  
-          <Pressable
-            style={[styles.themeButton, theme === 'dark' && styles.activeButton]}
-            onPress={() => setTheme('dark')}
-          >
-            <Text style={styles.buttonText}>Dark</Text>
-          </Pressable>
-  
-          <Pressable
-            style={[styles.themeButton, theme === 'medium' && styles.activeButton]}
-            onPress={() => setTheme('medium')}
-          >
-            <Text style={styles.buttonText}>Medium</Text>
-          </Pressable>
+        <Pressable
+  style={[styles.themeButton, theme === 'jake' && { backgroundColor: Colors.jake.activeButton }]}
+  onPress={() => setTheme('jake')}
+>
+  <Text style={styles.buttonText}>Jake</Text>
+        </Pressable>
+
+        <Pressable
+          style={[styles.themeButton, theme === 'finn' && { backgroundColor: Colors.finn.activeButton }]}
+          onPress={() => setTheme('finn')}
+        >
+          <Text style={styles.buttonText}>Finn</Text>
+        </Pressable>
+
+        <Pressable
+          style={[styles.themeButton, theme === 'bmo' && { backgroundColor: Colors.bmo.activeButton }]}
+          onPress={() => setTheme('bmo')}
+        >
+          <Text style={styles.buttonText}>BMO</Text>
+        </Pressable>
+
         </View>
       </View>
     );
@@ -84,64 +82,3 @@ export default function HomeScreen() {
       fontWeight: 'bold',
     },
   });
-
-
-{/* <Link href="/explore" style={{ marginHorizontal: 'auto' }} asChild>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>
-              Play
-            </Text>
-          </Pressable>
-        </Link> */}
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexDirection: 'column',
-//   },
-//   backgroundImage: {
-//     width: '100%',
-//     height: '100%',
-//     flex: 1,
-//     justifyContent: 'center',
-//   },
-//   title: {
-//     color:  'black',
-//     fontSize: 42,
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     backgroundColor: 'red',
-//     marginBottom: 120
-//   },
-//   link: {
-//     textDecorationLine: 'underline',
-//     color:  'black',
-//     fontSize: 42,
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     backgroundColor: 'blue',
-//     padding: 4
-//   },
-//   buttonText: {
-//     color:  'black',
-//     fontSize: 16,
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     padding: 4
-//   },
-//   button: {
-//     height: 60,
-//     borderRadius:20,
-//     backgroundColor: 'green',
-//     padding: 6,
-//     justifyContent: 'center'
-//   },
-//   themeButton: {
-//     marginTop: 20,
-//     height: 40,
-//     borderRadius: 20,
-//     backgroundColor: 'yellow',
-//     padding: 6,
-//     justifyContent: 'center',
-//   },
-// })

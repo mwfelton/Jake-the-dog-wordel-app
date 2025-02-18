@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 // import { Colors } from '@/constants/Colors';
 
-type Theme = 'light' | 'dark' | 'medium';
+type Theme = 'jake' | 'finn' | 'bmo';
 
 interface ThemeContextProps {
   theme: Theme;
@@ -23,7 +23,7 @@ export const useTheme = (): ThemeContextProps => {
   }
 
   export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-    const [theme, setTheme] = useState<Theme>('light'); // default theme
+    const [theme, setTheme] = useState<Theme>('jake'); //default
   
     return (
       <ThemeContext.Provider value={{ theme, setTheme }}>

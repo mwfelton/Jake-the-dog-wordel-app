@@ -1,6 +1,5 @@
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
-
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -10,19 +9,17 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Colors } from '@/constants/Colors';
-import { Fonts } from '@/constants/Colors';
+import { Fonts } from '@/constants/Fonts';
 import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 function RootLayoutInner() {
-  const { theme } = useTheme();
-  const colorScheme = useColorScheme() || 'light'; // Ensure a valid theme
+  const { theme } = useTheme(); // ✅ This now only allows bmo, jake, or finn
 
   const appTheme = {
-    dark: colorScheme === 'dark',
-    colors: Colors[colorScheme] || Colors.light, // Ensure valid theme
+    dark: theme === 'bmo', // ✅ Only set dark mode if theme is 'bmo'
+    colors: Colors[theme] || Colors.jake, // ✅ Ensure fallback is one of your themes
     fonts: Fonts,
   };
 
@@ -38,7 +35,6 @@ function RootLayoutInner() {
 }
 
 export default function RootLayout() {
-  // const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -54,21 +50,8 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider>
+    <ThemeProvider> {/* ✅ Wrap everything in ThemeProvider */}
       <RootLayoutInner />
     </ThemeProvider>
   );
-
-  // return (
-  //   // <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-
-    
-  //   <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : colorScheme === 'medium' ? { ...DefaultTheme, colors: Colors.medium } : DefaultTheme}>
-  //     <Stack>
-  //       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-  //       <Stack.Screen name="+not-found" />
-  //     </Stack>
-  //     <StatusBar style="auto" />
-  //   </ThemeProvider>
-  // );
 }

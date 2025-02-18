@@ -29,7 +29,6 @@ const GameScreen = () => {
   useEffect(() => {
     getRandomWord();
   }, []);
-  
 
   const handleKeyPress = (key: string) => {
     setGameMessage('');
@@ -82,8 +81,8 @@ const GameScreen = () => {
     setGameRound(0);
     setGameOver(false);
     setGameMessage('');
-    setLoading(true); // Reset loading state for the new game
-    setError(null); // Reset error state
+    setLoading(true);
+    setError(null); 
     // Fetch a new random word
     getRandomWord();
   };
@@ -99,13 +98,8 @@ const GameScreen = () => {
       <GameBoard gameBoard={gameBoard} wordToGuess={wordToGuess} gameRound={gameRound} gameWon={gameOver} />
       <Keyboard handleKeyPress={handleKeyPress} />
 
-      {gameMessage !== '' && (
-        <Text style={styles.gameMessage}>{gameMessage}</Text>
-      )}
-
       {gameOver && (
         <View style={styles.gameOverContainer}>
-          <Text style={styles.gameOverText}>{gameMessage}</Text>
           <TouchableOpacity style={styles.newGameButton} onPress={handleNewGame}>
             <Text style={styles.newGameButtonText}>New Game</Text>
           </TouchableOpacity>
@@ -120,7 +114,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#4CAF50',
+    // backgroundColor: '#4CAF50',
   },
   gameOverContainer: {
     marginTop: 20,
