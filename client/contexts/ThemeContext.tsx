@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 // import { Colors } from '@/constants/Colors';
 
-type Theme = 'jake' | 'finn' | 'bmo';
+export type Theme = 'jake' | 'finn' | 'bmo';
 
 interface ThemeContextProps {
   theme: Theme;
