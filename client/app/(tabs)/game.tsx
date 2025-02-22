@@ -6,6 +6,7 @@ import { fetchRandomWord } from '../../api/wordsApi';
 
 const GameScreen = () => {
   const [gameBoard, setGameBoard] = useState<string[][]>(Array.from({ length: 6 }, () => Array(5).fill('')));
+  const [keyColors, setKeyColors] = useState<{ [key: string]: string }>({});
   const [wordToGuess, setWordToGuess] = useState<string>(''); // Empty initially
   const [gameRound, setGameRound] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -65,6 +66,23 @@ const GameScreen = () => {
       return;
     }
 
+    const newKeyColors = { ...keyColors };
+
+    currentRow.forEach((letter, index) => {
+      const upperLetter = letter.toUpperCase();
+  
+      if (wordToGuess[index] === upperLetter) {
+        newKeyColors[upperLetter] = 'green'; // Correct position
+      } else if (wordToGuess.includes(upperLetter)) {
+        // Only update if not already green
+        newKeyColors[upperLetter] = newKeyColors[upperLetter] !== 'green' ? 'yellow' : 'green';
+      } else {
+        newKeyColors[upperLetter] = newKeyColors[upperLetter] ? newKeyColors[upperLetter] : 'grey'; // Incorrect letter
+      }
+    });
+  
+    setKeyColors(newKeyColors); // Update keyboard colors
+
     if (guessedWord === wordToGuess) {
       setGameMessage('🎉 You won! 🎉');
       setGameOver(true);
@@ -82,8 +100,8 @@ const GameScreen = () => {
     setGameOver(false);
     setGameMessage('');
     setLoading(true);
-    setError(null); 
-    // Fetch a new random word
+    setError(null);
+    setKeyColors({});
     getRandomWord();
   };
 
@@ -96,7 +114,7 @@ const GameScreen = () => {
     <View style={styles.container}>
       {/* Removed guessedLetter prop */}
       <GameBoard gameBoard={gameBoard} wordToGuess={wordToGuess} gameRound={gameRound} gameWon={gameOver} />
-      <Keyboard handleKeyPress={handleKeyPress} />
+      <Keyboard handleKeyPress={handleKeyPress} keyColors={keyColors} />
 
       {gameOver && (
         <View style={styles.gameOverContainer}>

@@ -5,11 +5,12 @@ const { width } = Dimensions.get('window'); // Get the screen width
 const keyWidth = (width - 40) / 11; // 40px padding (20px on each side) for 10 keys
 const specialKeyWidth = keyWidth * 1.5; // Special keys (Enter, Delete) will be wider
 
-console.log('SCREEN', width)
 
+const Keyboard = ({ handleKeyPress, keyColors }: {
+  handleKeyPress: (letter: string) => void;
+  keyColors: { [key: string]: string };
+}) => {
 
-
-const Keyboard = ({ handleKeyPress }: { handleKeyPress: (letter: string) => void }) => {
   const keyboardRows = [
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
     ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
@@ -29,6 +30,9 @@ const Keyboard = ({ handleKeyPress }: { handleKeyPress: (letter: string) => void
               onPress={() => handleKeyPress(letter)}
               style={[
                 styles.key,
+                {
+                  backgroundColor: keyColors[letter] || 'pink',
+                },
                 (letter === 'Enter' || letter === 'Delete') && { width: specialKeyWidth }, // Apply special width to special keys
               ]}
             >
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ddd',
+    // backgroundColor: '#ddd',
     borderRadius: 5,
   },
   keyText: {
