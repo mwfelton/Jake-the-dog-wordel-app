@@ -1,4 +1,3 @@
-import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -7,7 +6,6 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { Colors } from '@/constants/Colors';
 import { Fonts } from '@/constants/Fonts';
 import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
@@ -20,7 +18,7 @@ function RootLayoutInner() {
   const appTheme = {
     dark: theme === 'bmo', // ✅ Only set dark mode if theme is 'bmo'
     colors: Colors[theme] || Colors.jake, // ✅ Ensure fallback is one of your themes
-    fonts: Fonts,
+    fonts: Fonts[theme],
   };
 
   return (
@@ -36,7 +34,9 @@ function RootLayoutInner() {
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    Dogname: require('../assets/fonts/Dogname.ttf'),
+    BrownBagLunch: require('../assets/fonts/BrownBagLunch.ttf'),
+    bmos: require('../assets/fonts/bmos.ttf'),
   });
 
   useEffect(() => {

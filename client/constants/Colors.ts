@@ -4,17 +4,19 @@ const tintColorDark = '#fff';
 
 export const Colors = {
   jake: {
-    tabIconDefault: 'purple',
-    tabIconSelected: 'brown',
-    card: 'yellow',
+    tabIconDefault: '#e7e1b2',
+    tabIconSelected: '#ffffd4',
+    card: '#31251f',
     border: 'orange',
     primary: 'red',
-    background: 'orange',
+    background: '#f6bb12',
     text: 'green',
     notification: 'brown',
     tint: 'gray',
     icon: 'black',
-    activeButton: 'yellow', // New
+    activeButton: 'yellow',
+    playButton: '#ffffd4',
+    fontColor: '#31251f',
   },
   finn: {
     tabIconDefault: 'blue',
@@ -27,7 +29,9 @@ export const Colors = {
     notification: 'blue',
     tint: 'gray',
     icon: 'navy',
-    activeButton: 'lightblue', // New
+    activeButton: 'lightblue',
+    playButton: '#e0f7fa',
+    fontColor: '#0d47a1',
   },
   bmo: {
     tabIconDefault: 'green',
@@ -40,7 +44,9 @@ export const Colors = {
     notification: 'lime',
     tint: 'gray',
     icon: 'darkgreen',
-    activeButton: 'teal', // New
+    activeButton: 'teal',
+    playButton: '#b2dfdb',
+    fontColor: '#004d40',
   },
 };
 

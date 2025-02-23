@@ -19,9 +19,9 @@ export default function HomeScreen() {
     <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
       <ThemeButtons />
       <Text style={styles.themeButtonText}>Choose your theme</Text>
-      <Image style={styles.heroImage} source={require("../../assets/images/logo.jpg")} />
+      <Image style={styles.heroImage} source={require("../../assets/images/Adventure_Time.svg")} />
       <Text style={styles.title}>Wordle Time</Text>
-      <Pressable style={styles.playButton} onPress={navigateToGame}>
+      <Pressable style={[styles.playButton, { backgroundColor: colorScheme.playButton }]} onPress={navigateToGame}>
         <Text style={styles.playButtonText}>Play</Text>
       </Pressable>
     </View>
@@ -30,11 +30,10 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-      // flex: 1,
-      paddingHorizontal: Responsive.scale(16),
-      paddingVertical: Responsive.scale(20),
-      alignItems: "center",
-    },
+    paddingHorizontal: Responsive.scale(16),
+    paddingVertical: Responsive.scale(20),
+    alignItems: "center",
+  },
   title: {
     fontSize: 42,
     fontWeight: 'bold',

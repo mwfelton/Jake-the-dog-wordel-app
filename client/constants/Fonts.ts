@@ -1,10 +1,26 @@
 export const Fonts = {
-  regular: { fontFamily: 'SpaceMono-Regular', fontWeight: "normal" as "normal" },
-  bold: { fontFamily: 'SpaceMono-Bold', fontWeight: "bold" as "bold" },
-  italic: { fontFamily: 'SpaceMono-Italic', fontStyle: "italic" as "italic" },
-  light: { fontFamily: 'SpaceMono-Light', fontWeight: "300" as "300" },
-  medium: { fontFamily: 'SpaceMono-Medium', fontWeight: "500" as "500" },
-  heavy: { fontFamily: 'SpaceMono-Heavy', fontWeight: "900" as "900" },
+  bmo: {
+    dark: true,
+    colors: {
+      background: '#0B3D91',
+      text: '#FFFFFF',
+    },
+    fontFamily: 'bmos',
+  },
+  jake: {
+    dark: false,
+    colors: {
+      background: '#FFD700',
+      text: '#000000',
+    },
+    fontFamily: 'BrownBagLunch',
+  },
+  finn: {
+    dark: false,
+    colors: {
+      background: '#87CEEB',
+      text: '#000000',
+    },
+    fontFamily: 'Dogname',
+  },
 };
-
-
