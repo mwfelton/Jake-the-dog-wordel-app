@@ -112,7 +112,6 @@ const GameScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Removed guessedLetter prop */}
       <GameBoard gameBoard={gameBoard} wordToGuess={wordToGuess} gameRound={gameRound} gameWon={gameOver} />
       <Keyboard handleKeyPress={handleKeyPress} keyColors={keyColors} />
 

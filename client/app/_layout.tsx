@@ -13,13 +13,18 @@ import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
 SplashScreen.preventAutoHideAsync();
 
 function RootLayoutInner() {
-  const { theme } = useTheme(); // ✅ This now only allows bmo, jake, or finn
+  const { theme, colors } = useTheme();
+  console.log('Current Theme in RootLayoutInner:', theme);
+
 
   const appTheme = {
     dark: theme === 'bmo', // ✅ Only set dark mode if theme is 'bmo'
     colors: Colors[theme] || Colors.jake, // ✅ Ensure fallback is one of your themes
     fonts: Fonts[theme],
   };
+
+  console.log('Current Theme:', theme);
+console.log('Current Font:', Fonts[theme]?.fontFamily);
 
   return (
     <NavigationThemeProvider value={appTheme}>
@@ -46,6 +51,7 @@ export default function RootLayout() {
   }, [loaded]);
 
   if (!loaded) {
+    console.log('failed')
     return null;
   }
 

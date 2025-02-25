@@ -1,3 +1,5 @@
+// constants/Colors.ts
+
 const tintColorMedium = '#555';
 const tintColorLight = 'pink';
 const tintColorDark = '#fff';
@@ -17,6 +19,19 @@ export const Colors = {
     activeButton: 'yellow',
     playButton: '#ffffd4',
     fontColor: '#31251f',
+    // Add more UI-specific colors for keyboard/gameboard
+    keyboard: {
+      defaultKeyColor: '#c0c0c0',
+      correctPositionColor: 'green',
+      wrongPositionColor: 'yellow',
+      activeKeyColor: 'blue',
+    },
+    gameboard: {
+      border: '#333',
+      background: '#f0f0f0',
+      text: '#000',
+    },
+    // You can add more as needed
   },
   finn: {
     tabIconDefault: 'blue',
@@ -32,6 +47,17 @@ export const Colors = {
     activeButton: 'lightblue',
     playButton: '#e0f7fa',
     fontColor: '#0d47a1',
+    keyboard: {
+      defaultKeyColor: '#e0e0e0',
+      correctPositionColor: 'green',
+      wrongPositionColor: 'yellow',
+      activeKeyColor: 'skyblue',
+    },
+    gameboard: {
+      border: '#aaa',
+      background: '#fff',
+      text: '#333',
+    },
   },
   bmo: {
     tabIconDefault: 'green',
@@ -47,47 +73,16 @@ export const Colors = {
     activeButton: 'teal',
     playButton: '#b2dfdb',
     fontColor: '#004d40',
+    keyboard: {
+      defaultKeyColor: '#76c7c0',
+      correctPositionColor: 'green',
+      wrongPositionColor: 'yellow',
+      activeKeyColor: 'lightgreen',
+    },
+    gameboard: {
+      border: '#555',
+      background: '#dfe6e9',
+      text: '#2d3436',
+    },
   },
 };
-
-
-// export const Colors = {
-//   light: {
-//     tabIconDefault: 'purple', //icon color when not selected
-//     tabIconSelected: 'brown',// icon color when selected
-//     card: 'yellow', // changes the color of the tab bar at the bottom of the screen
-//     border: 'orange', // changes the border of the tab bar
-
-//     primary: 'red', //don't know what this does
-//     background: 'orange', // doesn't do anything
-//     text: 'green',// doens't do anything
-//     notification: 'brown',// don't know where this applies,
-//     tint: 'gray', // don't know what this does
-//     icon: 'black', // don't know what this does
-    
-//   },
-//   dark: {
-//     primary: tintColorDark,
-//     background: '#yellow',
-//     card: '#1c1c1e',
-//     text: '#ECEDEE',
-//     border: '#3a3a3c',
-//     notification: '#ff453a',
-//     tint: tintColorDark,
-//     icon: '#9BA1A6',
-//     tabIconDefault: '#9BA1A6',
-//     tabIconSelected: tintColorDark,
-//   },
-//   medium: {
-//     primary: '#5a5a5a',
-//     background: '#2f2f2f',
-//     card: '#3a3a3a',
-//     text: '#dcdcdc',
-//     border: '#555555',
-//     notification: '#ffcc00',
-//     tint: '#5a5a5a',
-//     icon: '#bbbbbb',
-//     tabIconDefault: '#bbbbbb',
-//     tabIconSelected: '#5a5a5a',
-//   },
-// };

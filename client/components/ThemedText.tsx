@@ -19,9 +19,7 @@ export function ThemedText({
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
   const { theme } = useTheme(); 
   const fontFamily = Fonts[theme]?.fontFamily || 'System'; 
-
-
-
+  console.log('ThemedText Font:', fontFamily); // ✅ Check if this updates on theme change
 
   return (
     <Text
