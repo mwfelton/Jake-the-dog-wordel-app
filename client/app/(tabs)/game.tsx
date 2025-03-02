@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import GameBoard from '@/components/gameScreen/GameBoard';
 import Keyboard from '@/components/gameScreen/Keyboard';
-import { fetchRandomWord } from '../../api/wordsApi'; 
+import { fetchRandomWord } from '../../api/wordsApi';
+import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { getLetterColor } from '@/utils/getLetterColor';
 
 const GameScreen = () => {
   const [gameBoard, setGameBoard] = useState<string[][]>(Array.from({ length: 6 }, () => Array(5).fill('')));
@@ -13,10 +15,15 @@ const GameScreen = () => {
   const [gameMessage, setGameMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { themedStyles, keyboardColors } = useThemeStyles();
+
+  useEffect(() => {
+    getRandomWord();
+  }, []);
 
   const getRandomWord = async () => {
     try {
-      setLoading(true); // Ensure loading state is updated
+      setLoading(true);
       const data = await fetchRandomWord();
       setWordToGuess(data.word);
     } catch (err) {
@@ -26,11 +33,6 @@ const GameScreen = () => {
     }
   };
   
-  // Fetch the word when the component mounts
-  useEffect(() => {
-    getRandomWord();
-  }, []);
-
   const handleKeyPress = (key: string) => {
     setGameMessage('');
     if (gameOver) return; // Prevent input if game is over
@@ -38,11 +40,11 @@ const GameScreen = () => {
     const currentRow = [...gameBoard[gameRound]];
 
     if (key === 'Delete') {
-      const lastIndex = currentRow.lastIndexOf('');
-      if (lastIndex > 0) {
-        currentRow[lastIndex - 1] = '';
-      } else {
-        currentRow[currentRow.length - 1] = '';
+      const lastFilledIndex = currentRow.reduce((lastIndex, letter, index) => 
+        letter !== '' ? index : lastIndex, -1);
+    
+      if (lastFilledIndex !== -1) {
+        currentRow[lastFilledIndex] = ''; // Clear the last entered letter
       }
     } else if (key === 'Enter') {
       handleSubmit(currentRow);
@@ -58,31 +60,108 @@ const GameScreen = () => {
     setGameBoard(updatedGameBoard);
   };
 
+  // const handleSubmit = (currentRow: string[]) => {
+  //   const guessedWord = currentRow.join('');
+
+  //   if (guessedWord.length < 5) {
+  //     setGameMessage('Please enter a 5-letter word');
+  //     return;
+  //   }
+
+  //   const newKeyColors = { ...keyColors };
+
+  //   currentRow.forEach((letter, index) => {
+  //     const upperLetter = letter.toUpperCase();
+    
+  //     if (wordToGuess[index] === upperLetter) {
+  //       // Correct position (Green) - always override
+  //       newKeyColors[upperLetter] = keyboardColors.correctPositionColor;
+  //     } else if (wordToGuess.includes(upperLetter)) {
+  //       // Wrong position (Yellow) - only override if it's not already Green
+  //       if (newKeyColors[upperLetter] !== keyboardColors.correctPositionColor) {
+  //         newKeyColors[upperLetter] = keyboardColors.wrongPositionColor;
+  //       }
+  //     } else {
+  //       // Not in the word (Gray)
+  //       if (!newKeyColors[upperLetter]) {
+  //         newKeyColors[upperLetter] = keyboardColors.activeKeyColor;
+  //       }
+  //     }
+  //   });
+  
+  //   setKeyColors(newKeyColors); // Update keyboard colors
+
+  //   if (guessedWord === wordToGuess) {
+  //     setGameMessage('🎉 You won! 🎉');
+  //     setGameOver(true);
+  //   } else if (gameRound === 5) {
+  //     setGameMessage(`Game Over! The correct word was ${wordToGuess}.`);
+  //     setGameOver(true);
+  //   } else {
+  //     setGameRound(prevRound => prevRound + 1);
+  //   }
+  // };
+
+  // const handleSubmit = (currentRow: string[]) => {
+  //   const guessedWord = currentRow.join('');
+  
+  //   if (guessedWord.length < 5) {
+  //     setGameMessage('Please enter a 5-letter word');
+  //     return;
+  //   }
+  
+  //   const newKeyColors = { ...keyColors };
+  
+  //   currentRow.forEach((letter, index) => {
+  //     newKeyColors[letter.toUpperCase()] = getLetterColor(
+  //       letter,
+  //       index,
+  //       wordToGuess,
+  //       keyboardColors,
+  //     );
+  //   });
+  
+  //   setKeyColors(newKeyColors);
+  
+  //   if (guessedWord === wordToGuess) {
+  //     setGameMessage('🎉 You won! 🎉');
+  //     setGameOver(true);
+  //   } else if (gameRound === 5) {
+  //     setGameMessage(`Game Over! The correct word was ${wordToGuess}.`);
+  //     setGameOver(true);
+  //   } else {
+  //     setGameRound((prevRound) => prevRound + 1);
+  //   }
+  // };
+
   const handleSubmit = (currentRow: string[]) => {
     const guessedWord = currentRow.join('');
-
+  
     if (guessedWord.length < 5) {
       setGameMessage('Please enter a 5-letter word');
       return;
     }
-
+  
     const newKeyColors = { ...keyColors };
-
+  
     currentRow.forEach((letter, index) => {
       const upperLetter = letter.toUpperCase();
   
-      if (wordToGuess[index] === upperLetter) {
-        newKeyColors[upperLetter] = 'green'; // Correct position
-      } else if (wordToGuess.includes(upperLetter)) {
-        // Only update if not already green
-        newKeyColors[upperLetter] = newKeyColors[upperLetter] !== 'green' ? 'yellow' : 'green';
-      } else {
-        newKeyColors[upperLetter] = newKeyColors[upperLetter] ? newKeyColors[upperLetter] : 'grey'; // Incorrect letter
+      // If the letter is already green, don't override it
+      if (newKeyColors[upperLetter] === keyboardColors.correctPositionColor) {
+        return;
       }
+  
+      newKeyColors[upperLetter] = getLetterColor(
+        letter,
+        index,
+        wordToGuess,
+        keyboardColors
+      );
     });
   
-    setKeyColors(newKeyColors); // Update keyboard colors
-
+    setKeyColors(newKeyColors);
+  
     if (guessedWord === wordToGuess) {
       setGameMessage('🎉 You won! 🎉');
       setGameOver(true);
@@ -90,10 +169,12 @@ const GameScreen = () => {
       setGameMessage(`Game Over! The correct word was ${wordToGuess}.`);
       setGameOver(true);
     } else {
-      setGameRound(prevRound => prevRound + 1);
+      setGameRound((prevRound) => prevRound + 1);
     }
   };
-
+  
+  
+  
   const handleNewGame = () => {
     setGameBoard(Array.from({ length: 6 }, () => Array(5).fill('')));
     setGameRound(0);
@@ -129,9 +210,7 @@ const GameScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#4CAF50',
   },
   gameOverContainer: {
     marginTop: 20,

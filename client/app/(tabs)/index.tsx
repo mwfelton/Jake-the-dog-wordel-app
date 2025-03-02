@@ -7,8 +7,7 @@ import { Responsive } from "@/utils/responsive";
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 
 export default function HomeScreen() {
-  const { theme } = useTheme();
-  const { themedStyles } = useThemeStyles(); // Get the dynamic styles based on the theme
+  const { themedStyles } = useThemeStyles();
 
   const navigation = useNavigation();
 
@@ -21,9 +20,9 @@ export default function HomeScreen() {
       <ThemeButtons />
       <Text style={[styles.themeButtonText, themedStyles.text]}>Choose your theme</Text>
       <Image style={styles.heroImage} source={require("../../assets/images/Adventure_Time.svg")} />
-      <Text style={[styles.title, themedStyles.text]}>Wordle Time</Text>
+      <Text style={[styles.title, themedStyles.text]}>Wordle Time!</Text>
       <Pressable style={[styles.playButton, themedStyles.button]} onPress={navigateToGame}>
-        <Text style={styles.playButtonText}>Play</Text>
+        <Text style={[styles.playButtonText, themedStyles.text]}>Play</Text>
       </Pressable>
     </View>
   );
@@ -36,21 +35,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 42,
+    fontSize: 60,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
   },
   themeButtonText: {
-    fontSize: Responsive.scale(10),
-    fontWeight: 'bold',
+    fontSize: Responsive.scale(12),
     textAlign: 'center',
     margin: 5,
   },
   heroImage: {
-    width: '80%',
+    width: '40%',
     aspectRatio: 1,
     resizeMode: 'contain',
+    marginTop: 100,
   },
   playButton: {
     paddingVertical: Responsive.scale(10),
@@ -60,8 +59,6 @@ const styles = StyleSheet.create({
   },
   playButtonText: {
     fontSize: Responsive.scale(18),
-    fontWeight: 'bold',
-    color: '#FFF',
     textAlign: 'center',
   },
 });

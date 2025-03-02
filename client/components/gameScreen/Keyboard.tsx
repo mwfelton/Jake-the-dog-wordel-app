@@ -1,15 +1,14 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { useThemeStyles } from '@/hooks/useThemeStyles';
 
-const { width } = Dimensions.get('window'); // Get the screen width
-const keyWidth = (width - 40) / 11; // 40px padding (20px on each side) for 10 keys
-const specialKeyWidth = keyWidth * 1.5; // Special keys (Enter, Delete) will be wider
+const { width } = Dimensions.get('window');
+const keyWidth = (width - 40) / 11; 
 
+const Keyboard = ({ handleKeyPress, keyColors }: { handleKeyPress: (letter: string) => void; keyColors: { [key: string]: string };}) => {
 
-const Keyboard = ({ handleKeyPress, keyColors }: {
-  handleKeyPress: (letter: string) => void;
-  keyColors: { [key: string]: string };
-}) => {
+  console.log(keyColors)
+  const { themedStyles, keyboardColors } = useThemeStyles();
 
   const keyboardRows = [
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -17,8 +16,8 @@ const Keyboard = ({ handleKeyPress, keyColors }: {
     ['Enter', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Delete'],
   ];
 
-  const keyWidth = width / 10; // Calculate key width based on screen width
-  const specialKeyWidth = keyWidth * 1.5; // Special keys (Enter, Delete) will be wider
+  const keyWidth = width / 10;
+  const specialKeyWidth = keyWidth * 1.5;
 
   return (
     <View style={styles.keyboard}>
@@ -31,12 +30,12 @@ const Keyboard = ({ handleKeyPress, keyColors }: {
               style={[
                 styles.key,
                 {
-                  backgroundColor: keyColors[letter] || 'pink',
+                  backgroundColor: keyColors[letter] || keyboardColors.defaultKeyColor,
                 },
-                (letter === 'Enter' || letter === 'Delete') && { width: specialKeyWidth }, // Apply special width to special keys
+                (letter === 'Enter' || letter === 'Delete') && { width: specialKeyWidth },
               ]}
             >
-              <Text style={styles.keyText}>{letter}</Text>
+              <Text style={[styles.keyText, themedStyles.text]}>{letter}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -47,9 +46,9 @@ const Keyboard = ({ handleKeyPress, keyColors }: {
 
 const styles = StyleSheet.create({
   keyboard: {
-    width: '100%', // Ensures the keyboard container spans the full width of the screen
+    width: '50%',
     alignItems: 'center',
-    paddingHorizontal: '3%', // Adds padding to prevent keys from touching the edges
+    paddingHorizontal: '3%',
   },
   row: {
     width: '100%',
@@ -58,12 +57,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   key: {
-    width: keyWidth, // Dynamically set width
-    height: keyWidth, // Set height equal to width for square keys
+    width: keyWidth,
+    height: keyWidth,
     marginHorizontal: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#ddd',
     borderRadius: 5,
   },
   keyText: {

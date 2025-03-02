@@ -23,9 +23,6 @@ function RootLayoutInner() {
     fonts: Fonts[theme],
   };
 
-  console.log('Current Theme:', theme);
-console.log('Current Font:', Fonts[theme]?.fontFamily);
-
   return (
     <NavigationThemeProvider value={appTheme}>
       <Stack>

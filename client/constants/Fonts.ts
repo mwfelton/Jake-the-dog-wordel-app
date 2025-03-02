@@ -13,7 +13,7 @@ export const Fonts = {
       background: '#FFD700',
       text: '#000000',
     },
-    fontFamily: 'BrownBagLunch',
+    fontFamily: 'Dogname',
   },
   finn: {
     dark: false,
@@ -21,6 +21,6 @@ export const Fonts = {
       background: '#87CEEB',
       text: '#000000',
     },
-    fontFamily: 'Dogname',
+    fontFamily: 'BrownBagLunch',
   },
 };

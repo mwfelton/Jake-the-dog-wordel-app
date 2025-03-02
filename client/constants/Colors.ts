@@ -1,42 +1,35 @@
-// constants/Colors.ts
-
-const tintColorMedium = '#555';
-const tintColorLight = 'pink';
-const tintColorDark = '#fff';
-
 export const Colors = {
   jake: {
-    tabIconDefault: '#e7e1b2',
-    tabIconSelected: '#ffffd4',
+    tabIconDefault: '#ffffd4',
+    tabIconSelected: '#e7e1b2',
     card: '#31251f',
     border: 'orange',
     primary: 'red',
     background: '#f6bb12',
-    text: 'green',
+    text: '#31251f',
     notification: 'brown',
     tint: 'gray',
     icon: 'black',
     activeButton: 'yellow',
     playButton: '#ffffd4',
     fontColor: '#31251f',
-    // Add more UI-specific colors for keyboard/gameboard
     keyboard: {
-      defaultKeyColor: '#c0c0c0',
-      correctPositionColor: 'green',
-      wrongPositionColor: 'yellow',
-      activeKeyColor: 'blue',
+      defaultKeyColor: 'white',
+      correctPositionColor: '#77ca4a',
+      wrongPositionColor: '#ca4a77',
+      activeKeyColor: '#cccccc',
+      winningColor: 'black'
     },
     gameboard: {
       border: '#333',
       background: '#f0f0f0',
       text: '#000',
     },
-    // You can add more as needed
   },
   finn: {
-    tabIconDefault: 'blue',
+    tabIconDefault: '#05aed5',
     tabIconSelected: 'white',
-    card: 'lightblue',
+    card: '#0162cd',
     border: 'darkblue',
     primary: 'skyblue',
     background: 'white',
@@ -48,10 +41,11 @@ export const Colors = {
     playButton: '#e0f7fa',
     fontColor: '#0d47a1',
     keyboard: {
-      defaultKeyColor: '#e0e0e0',
-      correctPositionColor: 'green',
-      wrongPositionColor: 'yellow',
-      activeKeyColor: 'skyblue',
+      defaultKeyColor: '#e0f7fa',
+      correctPositionColor: '#b4ff8d',
+      wrongPositionColor: '#f4d85b',
+      activeKeyColor: '#cccccc',
+      winningColor: 'black'
     },
     gameboard: {
       border: '#aaa',
@@ -74,10 +68,11 @@ export const Colors = {
     playButton: '#b2dfdb',
     fontColor: '#004d40',
     keyboard: {
-      defaultKeyColor: '#76c7c0',
-      correctPositionColor: 'green',
+      defaultKeyColor: 'brown',
+      correctPositionColor: 'black',
       wrongPositionColor: 'yellow',
-      activeKeyColor: 'lightgreen',
+      activeKeyColor: '#cccccc',
+      winningColor: 'black'
     },
     gameboard: {
       border: '#555',

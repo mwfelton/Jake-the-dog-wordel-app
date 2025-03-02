@@ -33,8 +33,6 @@ const styles = StyleSheet.create({
   themeButtonsContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    // alignItems: "center",
-    // width: Responsive.scale(100), 
     padding: Responsive.scale(6), 
     backgroundColor: "beige",
     borderRadius: Responsive.scale(50),
@@ -47,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#CCC",
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: Responsive.scale(2), // This will create the gap
+    marginHorizontal: Responsive.scale(2),
   },
   buttonImage: {
     width: Responsive.scale(30),

@@ -1,49 +1,32 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useThemeStyles } from '@/hooks/useThemeStyles';
+import { getLetterColor } from '@/utils/getLetterColor';
 
 type GameBoardProps = {
-  gameBoard: string[][]; // Represents the game board
-  wordToGuess: string; // The target word
+  gameBoard: string[][];
+  wordToGuess: string;
   gameRound: number;
-  gameWon: boolean; // New prop to check if the game is won
+  gameWon: boolean;
 };
 
-export function GameBoard({ gameBoard, wordToGuess, gameRound, gameWon }: GameBoardProps) {
+export function GameBoard({ gameBoard, wordToGuess, gameRound }: GameBoardProps) {
+  const { keyboardColors } = useThemeStyles(); // Get themed colors
 
-  const getBackgroundColor = (letter: string, index: number, rowIndex: number) => {
-    if (gameWon && rowIndex === gameRound) {
-      return 'blue'; // The last submitted row turns blue if the game is won
-    }
-  
-    if (rowIndex >= gameRound) {
-      return 'transparent'; // Don't color the current typing row or future rows
-    }
-  
-    if (letter === wordToGuess[index]) {
-      return 'green'; // Correct position
-    } else if (wordToGuess.includes(letter)) {
-      return 'yellow'; // Wrong position
-    }
-  
-    return 'transparent'; // Default case
-  };
-  
   return (
     <View style={styles.board}>
       {gameBoard.map((row, rowIndex) => (
         <View key={rowIndex} style={styles.row}>
-          {row.map((letter, colIndex) => (
-            <View 
-              key={colIndex} 
-              style={[
-                styles.box, 
-                rowIndex < gameRound ? { backgroundColor: getBackgroundColor(letter, colIndex, rowIndex) } : gameWon ? { backgroundColor: getBackgroundColor(letter, colIndex, rowIndex) } : {}
-              ]}
-            >
-              <Text style={styles.boxText}>{letter}</Text>
-            </View>
-          ))}
+          {row.map((letter, colIndex) => {
+            const backgroundColor =
+              rowIndex < gameRound ? getLetterColor(letter, colIndex, wordToGuess, keyboardColors) : 'transparent';
+
+            return (
+              <View key={colIndex} style={[styles.box, { backgroundColor }]}>
+                <Text style={styles.boxText}>{letter}</Text>
+              </View>
+            );
+          })}
         </View>
       ))}
     </View>
@@ -52,7 +35,8 @@ export function GameBoard({ gameBoard, wordToGuess, gameRound, gameWon }: GameBo
 
 const styles = StyleSheet.create({
   board: {
-    marginTop: 20,
+    marginTop: 50,
+    marginBottom: 10,
     alignItems: 'center',
   },
   row: {
