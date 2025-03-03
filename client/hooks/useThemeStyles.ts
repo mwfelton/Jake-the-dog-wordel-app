@@ -1,4 +1,3 @@
-// hooks/useThemeStyles.ts
 import { StyleSheet } from 'react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Colors } from '@/constants/Colors';
@@ -7,16 +6,16 @@ import { Fonts } from '@/constants/Fonts';
 export const useThemeStyles = () => {
   const { theme } = useTheme();
   const colorScheme = Colors[theme];
-  const fontFamily = Fonts[theme]?.fontFamily || 'System'; // Default to 'System' if no font is found for the theme
+  const fontFamily = Fonts[theme]?.fontFamily || 'System';
+  const fontSize = Fonts[theme] || Fonts.jake;
 
-  // Only wrap valid styles in StyleSheet.create
   const themedStyles = StyleSheet.create({
     background: {
       backgroundColor: colorScheme.background,
     },
     text: {
       color: colorScheme.text,
-      fontFamily: fontFamily, // Apply the font family dynamically
+      fontFamily: fontFamily,
     },
     button: {
       backgroundColor: colorScheme.playButton,
@@ -24,11 +23,23 @@ export const useThemeStyles = () => {
     gameboard: {
       borderColor: colorScheme.gameboard.border,
       backgroundColor: colorScheme.gameboard.background,
-      color: colorScheme.gameboard.text, // Changed from textColor to color
+      color: colorScheme.gameboard.text,
+    },
+    title: {
+      fontSize: fontSize.fontSizes.title,
+    },
+    buttonText: {
+      fontSize: fontSize.fontSizes.button,
+    },
+    subtitle: {
+      fontSize: fontSize.fontSizes.subtitle,
     },
   });
 
-  // Return custom theme data (not wrapped in StyleSheet.create)
+  const gameBoardFontSize = fontSize.fontSizes.gameBoard
+  const keyBoardFontSize = fontSize.fontSizes.keyBoard
+  const playButtonTextColor = colorScheme.playButtonText || colorScheme.text;
+
   const keyboardColors = {
     defaultKeyColor: colorScheme.keyboard.defaultKeyColor,
     correctPositionColor: colorScheme.keyboard.correctPositionColor,
@@ -37,5 +48,5 @@ export const useThemeStyles = () => {
     winningColor: colorScheme.keyboard.winningColor
   };
 
-  return { themedStyles, keyboardColors };
+  return { themedStyles, keyboardColors, playButtonTextColor, gameBoardFontSize, keyBoardFontSize};
 };

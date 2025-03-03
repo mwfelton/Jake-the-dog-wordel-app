@@ -8,7 +8,7 @@ const keyWidth = (width - 40) / 11;
 const Keyboard = ({ handleKeyPress, keyColors }: { handleKeyPress: (letter: string) => void; keyColors: { [key: string]: string };}) => {
 
   console.log(keyColors)
-  const { themedStyles, keyboardColors } = useThemeStyles();
+  const { themedStyles, keyboardColors, keyBoardFontSize } = useThemeStyles();
 
   const keyboardRows = [
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -17,7 +17,7 @@ const Keyboard = ({ handleKeyPress, keyColors }: { handleKeyPress: (letter: stri
   ];
 
   const keyWidth = width / 10;
-  const specialKeyWidth = keyWidth * 1.5;
+  const specialKeyWidth = keyWidth * 1.7;
 
   return (
     <View style={styles.keyboard}>
@@ -35,7 +35,7 @@ const Keyboard = ({ handleKeyPress, keyColors }: { handleKeyPress: (letter: stri
                 (letter === 'Enter' || letter === 'Delete') && { width: specialKeyWidth },
               ]}
             >
-              <Text style={[styles.keyText, themedStyles.text]}>{letter}</Text>
+              <Text style={[{fontSize: keyBoardFontSize}, themedStyles.text]}>{letter}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -63,11 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-  },
-  keyText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+  }
 });
 
 export default Keyboard;

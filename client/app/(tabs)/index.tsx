@@ -1,13 +1,11 @@
-// app/(tabs)/index.tsx
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from "@/contexts/ThemeContext";
 import ThemeButtons from "@/components/ThemeButtons";
 import { Responsive } from "@/utils/responsive";
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 
 export default function HomeScreen() {
-  const { themedStyles } = useThemeStyles();
+  const { themedStyles, playButtonTextColor } = useThemeStyles();
 
   const navigation = useNavigation();
 
@@ -18,11 +16,11 @@ export default function HomeScreen() {
   return (
     <View style={[styles.container, themedStyles.background]}>
       <ThemeButtons />
-      <Text style={[styles.themeButtonText, themedStyles.text]}>Choose your theme</Text>
+      <Text style={[styles.themeButtonText, themedStyles.subtitle, themedStyles.text]}>Choose your theme</Text>
       <Image style={styles.heroImage} source={require("../../assets/images/Adventure_Time.svg")} />
-      <Text style={[styles.title, themedStyles.text]}>Wordle Time!</Text>
+      <Text style={[styles.title, themedStyles.title, themedStyles.text]}>Wordle Time!</Text>
       <Pressable style={[styles.playButton, themedStyles.button]} onPress={navigateToGame}>
-        <Text style={[styles.playButtonText, themedStyles.text]}>Play</Text>
+        <Text style={[themedStyles.buttonText, themedStyles.text, { color: playButtonTextColor }]}>Play</Text>
       </Pressable>
     </View>
   );
@@ -33,15 +31,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Responsive.scale(16),
     paddingVertical: Responsive.scale(20),
     alignItems: "center",
+    height: "100%",
   },
   title: {
-    fontSize: 60,
-    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
   },
   themeButtonText: {
-    fontSize: Responsive.scale(12),
     textAlign: 'center',
     margin: 5,
   },
@@ -49,7 +45,7 @@ const styles = StyleSheet.create({
     width: '40%',
     aspectRatio: 1,
     resizeMode: 'contain',
-    marginTop: 100,
+    marginTop: "15%",
   },
   playButton: {
     paddingVertical: Responsive.scale(10),

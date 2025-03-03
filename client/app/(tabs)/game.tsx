@@ -5,6 +5,7 @@ import Keyboard from '@/components/gameScreen/Keyboard';
 import { fetchRandomWord } from '../../api/wordsApi';
 import { useThemeStyles } from '@/hooks/useThemeStyles';
 import { getLetterColor } from '@/utils/getLetterColor';
+import { Responsive } from "@/utils/responsive";
 
 const GameScreen = () => {
   const [gameBoard, setGameBoard] = useState<string[][]>(Array.from({ length: 6 }, () => Array(5).fill('')));
@@ -15,7 +16,7 @@ const GameScreen = () => {
   const [gameMessage, setGameMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { themedStyles, keyboardColors } = useThemeStyles();
+  const { themedStyles, keyboardColors, playButtonTextColor } = useThemeStyles();
 
   useEffect(() => {
     getRandomWord();
@@ -89,7 +90,6 @@ const GameScreen = () => {
     setKeyColors(newKeyColors);
   
     if (guessedWord === wordToGuess) {
-      setGameMessage('🎉 You won! 🎉');
       setGameBoard(updatedGameBoard);
       setGameOver(true);
     } else if (gameRound === 5) {
@@ -122,13 +122,16 @@ const GameScreen = () => {
     <View style={styles.container}>
       <GameBoard gameBoard={gameBoard} wordToGuess={wordToGuess} gameRound={gameRound} gameWon={gameOver} />
       <Keyboard handleKeyPress={handleKeyPress} keyColors={keyColors} />
+      <Text style={styles.newGameButtonText}>{gameMessage}</Text>
 
       {gameOver && (
-        <View style={styles.gameOverContainer}>
-          <TouchableOpacity style={styles.newGameButton} onPress={handleNewGame}>
-            <Text style={styles.newGameButtonText}>New Game</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.gameOverContainer}>
+        <TouchableOpacity style={[styles.newGameButton, themedStyles.button]} onPress={handleNewGame}>
+          <Text style={[themedStyles.buttonText, themedStyles.text, { color: playButtonTextColor }]}>
+            New Game
+          </Text>
+        </TouchableOpacity>
+      </View>
       )}
     </View>
   );
@@ -139,35 +142,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  gameOverContainer: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
+  // gameOverContainer: {
+  //   margin: 'auto',
+  // },
   newGameButton: {
-    marginTop: 15,
-    backgroundColor: '#ff9800',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    paddingVertical: Responsive.scale(10),
+    paddingHorizontal: Responsive.scale(20),
+    borderRadius: Responsive.scale(30), // Match Play button
+    marginTop: 20,  // Keep spacing consistent
   },
-  newGameButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  gameOverText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-  },
-  gameMessage: {
-    marginTop: 10,
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'yellow',
-    textAlign: 'center',
-  },
+  // newGameButtonText: {
+  //   fontSize: 18,
+  //   color: 'white',
+  // }
 })
 
 export default GameScreen;

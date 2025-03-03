@@ -1,26 +1,34 @@
+import { Responsive } from "@/utils/responsive"; // Import your responsive utility
+
 export const Fonts = {
   bmo: {
-    dark: true,
-    colors: {
-      background: '#0B3D91',
-      text: '#FFFFFF',
+    fontFamily: "bmos",
+    fontSizes: {
+      title: Responsive.scale(65),
+      button: Responsive.scale(25),
+      subtitle: Responsive.scale(20),
+      gameBoard: Responsive.scale(25),
+      keyBoard: Responsive.scale(19)
     },
-    fontFamily: 'bmos',
   },
   jake: {
-    dark: false,
-    colors: {
-      background: '#FFD700',
-      text: '#000000',
+    fontFamily: "Dogname",
+    fontSizes: {
+      title: Responsive.scale(70),
+      button: Responsive.scale(30),
+      subtitle: Responsive.scale(20),
+      gameBoard: Responsive.scale(30),
+      keyBoard: Responsive.scale(18)
     },
-    fontFamily: 'Dogname',
   },
   finn: {
-    dark: false,
-    colors: {
-      background: '#87CEEB',
-      text: '#000000',
+    fontFamily: "BrownBagLunch",
+    fontSizes: {
+      title: Responsive.scale(80),
+      button: Responsive.scale(40),
+      subtitle: Responsive.scale(30),
+      gameBoard: Responsive.scale(35),
+      keyBoard: Responsive.scale(25)
     },
-    fontFamily: 'BrownBagLunch',
   },
 };

@@ -12,13 +12,14 @@ export const Colors = {
     icon: 'black',
     activeButton: 'yellow',
     playButton: '#ffffd4',
+    playButtonText: 'black',
     fontColor: '#31251f',
     keyboard: {
       defaultKeyColor: 'white',
       correctPositionColor: '#77ca4a',
       wrongPositionColor: '#ca4a77',
       activeKeyColor: '#cccccc',
-      winningColor: 'black'
+      winningColor: '#05aed5'
     },
     gameboard: {
       border: '#333',
@@ -39,13 +40,16 @@ export const Colors = {
     icon: 'navy',
     activeButton: 'lightblue',
     playButton: '#e0f7fa',
+    playButtonText: 'darkblue',
+    newGameButton: '#e0f7fa',
+    newGameButtonText: 'darkblue',
     fontColor: '#0d47a1',
     keyboard: {
       defaultKeyColor: '#e0f7fa',
       correctPositionColor: '#b4ff8d',
       wrongPositionColor: '#f4d85b',
       activeKeyColor: '#cccccc',
-      winningColor: 'black'
+      winningColor: '#05aed5'
     },
     gameboard: {
       border: '#aaa',
@@ -54,25 +58,26 @@ export const Colors = {
     },
   },
   bmo: {
-    tabIconDefault: 'green',
-    tabIconSelected: 'lightgreen',
-    card: 'teal',
+    tabIconDefault: '#d9ffea',
+    tabIconSelected: '#ffec47',
+    card: '#62afb7',
     border: 'darkgreen',
     primary: 'lime',
-    background: 'cyan',
-    text: 'black',
+    background: '#d9ffea',
+    text: '#0a1d20',
     notification: 'lime',
     tint: 'gray',
     icon: 'darkgreen',
     activeButton: 'teal',
-    playButton: '#b2dfdb',
+    playButton: '#63bda4',
+    playButtonText: '#f20553',
     fontColor: '#004d40',
     keyboard: {
-      defaultKeyColor: 'brown',
-      correctPositionColor: 'black',
-      wrongPositionColor: 'yellow',
-      activeKeyColor: '#cccccc',
-      winningColor: 'black'
+      defaultKeyColor: '#63bda4',
+      correctPositionColor: '#549454',
+      wrongPositionColor: '#f20553',
+      activeKeyColor: '#d4d4dc',
+      winningColor: '#44b097'
     },
     gameboard: {
       border: '#555',

@@ -53,32 +53,3 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
 });
-
-// const styles = StyleSheet.create({
-//     themeButtonsContainer: {
-//       flexDirection: 'row',
-//       justifyContent: 'space-around',
-//       width: '35%',
-//       backgroundColor: 'beige',
-//       borderRadius: 50,
-//       overflow: 'hidden',
-//       padding: '10px'
-//     },
-//     themeButton: {
-//       height: 60,
-//       width: 60,
-//       borderRadius: 50,
-//       backgroundColor: '#CCC',
-//       justifyContent: 'center',
-//       alignItems: 'center',
-//     },
-//     buttonImage: {
-//       width: 40,
-//       height: 40,
-//       marginBottom: 5,
-//       resizeMode: 'contain',
-//     },
-//     buttonText: {
-//       color: 'black',
-//       fontWeight: 'bold',
-//     },
