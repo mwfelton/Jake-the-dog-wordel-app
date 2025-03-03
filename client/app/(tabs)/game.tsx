@@ -9,7 +9,7 @@ import { getLetterColor } from '@/utils/getLetterColor';
 const GameScreen = () => {
   const [gameBoard, setGameBoard] = useState<string[][]>(Array.from({ length: 6 }, () => Array(5).fill('')));
   const [keyColors, setKeyColors] = useState<{ [key: string]: string }>({});
-  const [wordToGuess, setWordToGuess] = useState<string>(''); // Empty initially
+  const [wordToGuess, setWordToGuess] = useState<string>('');
   const [gameRound, setGameRound] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [gameMessage, setGameMessage] = useState('');
@@ -35,7 +35,7 @@ const GameScreen = () => {
   
   const handleKeyPress = (key: string) => {
     setGameMessage('');
-    if (gameOver) return; // Prevent input if game is over
+    if (gameOver) return;
 
     const currentRow = [...gameBoard[gameRound]];
 
@@ -44,14 +44,14 @@ const GameScreen = () => {
         letter !== '' ? index : lastIndex, -1);
     
       if (lastFilledIndex !== -1) {
-        currentRow[lastFilledIndex] = ''; // Clear the last entered letter
+        currentRow[lastFilledIndex] = '';
       }
     } else if (key === 'Enter') {
       handleSubmit(currentRow);
     } else {
       const nextIndex = currentRow.indexOf('');
       if (nextIndex !== -1) {
-        currentRow[nextIndex] = key.toUpperCase(); // Ensure uppercase letters
+        currentRow[nextIndex] = key.toUpperCase();
       }
     }
 
@@ -59,80 +59,6 @@ const GameScreen = () => {
     updatedGameBoard[gameRound] = currentRow;
     setGameBoard(updatedGameBoard);
   };
-
-  // const handleSubmit = (currentRow: string[]) => {
-  //   const guessedWord = currentRow.join('');
-
-  //   if (guessedWord.length < 5) {
-  //     setGameMessage('Please enter a 5-letter word');
-  //     return;
-  //   }
-
-  //   const newKeyColors = { ...keyColors };
-
-  //   currentRow.forEach((letter, index) => {
-  //     const upperLetter = letter.toUpperCase();
-    
-  //     if (wordToGuess[index] === upperLetter) {
-  //       // Correct position (Green) - always override
-  //       newKeyColors[upperLetter] = keyboardColors.correctPositionColor;
-  //     } else if (wordToGuess.includes(upperLetter)) {
-  //       // Wrong position (Yellow) - only override if it's not already Green
-  //       if (newKeyColors[upperLetter] !== keyboardColors.correctPositionColor) {
-  //         newKeyColors[upperLetter] = keyboardColors.wrongPositionColor;
-  //       }
-  //     } else {
-  //       // Not in the word (Gray)
-  //       if (!newKeyColors[upperLetter]) {
-  //         newKeyColors[upperLetter] = keyboardColors.activeKeyColor;
-  //       }
-  //     }
-  //   });
-  
-  //   setKeyColors(newKeyColors); // Update keyboard colors
-
-  //   if (guessedWord === wordToGuess) {
-  //     setGameMessage('🎉 You won! 🎉');
-  //     setGameOver(true);
-  //   } else if (gameRound === 5) {
-  //     setGameMessage(`Game Over! The correct word was ${wordToGuess}.`);
-  //     setGameOver(true);
-  //   } else {
-  //     setGameRound(prevRound => prevRound + 1);
-  //   }
-  // };
-
-  // const handleSubmit = (currentRow: string[]) => {
-  //   const guessedWord = currentRow.join('');
-  
-  //   if (guessedWord.length < 5) {
-  //     setGameMessage('Please enter a 5-letter word');
-  //     return;
-  //   }
-  
-  //   const newKeyColors = { ...keyColors };
-  
-  //   currentRow.forEach((letter, index) => {
-  //     newKeyColors[letter.toUpperCase()] = getLetterColor(
-  //       letter,
-  //       index,
-  //       wordToGuess,
-  //       keyboardColors,
-  //     );
-  //   });
-  
-  //   setKeyColors(newKeyColors);
-  
-  //   if (guessedWord === wordToGuess) {
-  //     setGameMessage('🎉 You won! 🎉');
-  //     setGameOver(true);
-  //   } else if (gameRound === 5) {
-  //     setGameMessage(`Game Over! The correct word was ${wordToGuess}.`);
-  //     setGameOver(true);
-  //   } else {
-  //     setGameRound((prevRound) => prevRound + 1);
-  //   }
-  // };
 
   const handleSubmit = (currentRow: string[]) => {
     const guessedWord = currentRow.join('');
@@ -143,11 +69,11 @@ const GameScreen = () => {
     }
   
     const newKeyColors = { ...keyColors };
+    const updatedGameBoard = [...gameBoard];
   
     currentRow.forEach((letter, index) => {
       const upperLetter = letter.toUpperCase();
   
-      // If the letter is already green, don't override it
       if (newKeyColors[upperLetter] === keyboardColors.correctPositionColor) {
         return;
       }
@@ -164,6 +90,7 @@ const GameScreen = () => {
   
     if (guessedWord === wordToGuess) {
       setGameMessage('🎉 You won! 🎉');
+      setGameBoard(updatedGameBoard);
       setGameOver(true);
     } else if (gameRound === 5) {
       setGameMessage(`Game Over! The correct word was ${wordToGuess}.`);
@@ -171,9 +98,9 @@ const GameScreen = () => {
     } else {
       setGameRound((prevRound) => prevRound + 1);
     }
+  
+    setKeyColors(newKeyColors);
   };
-  
-  
   
   const handleNewGame = () => {
     setGameBoard(Array.from({ length: 6 }, () => Array(5).fill('')));
