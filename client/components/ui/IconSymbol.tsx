@@ -11,6 +11,7 @@ const MAPPING = {
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
+  'person': 'person',
   // MaterialCommunityIcons
   'sword': 'sword', // Add the sword icon here for MaterialCommunityIcons
 } as const;
