@@ -1,4 +1,4 @@
-import { Responsive } from "@/utils/responsive"; // Import your responsive utility
+import { Responsive } from "@/utils/responsive";
 
 export const Fonts = {
   bmo: {

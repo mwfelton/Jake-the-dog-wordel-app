@@ -11,7 +11,7 @@ type GameBoardProps = {
 };
 
 export function GameBoard({ gameBoard, wordToGuess, gameRound, gameWon }: GameBoardProps) {
-  const { keyboardColors, themedStyles, gameBoardFontSize} = useThemeStyles(); // Get theme styles
+  const { keyboardColors, themedStyles, gameBoardFontSize} = useThemeStyles();
 
   return (
     <View style={styles.board}>

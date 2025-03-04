@@ -122,10 +122,10 @@ const GameScreen = () => {
     <View style={styles.container}>
       <GameBoard gameBoard={gameBoard} wordToGuess={wordToGuess} gameRound={gameRound} gameWon={gameOver} />
       <Keyboard handleKeyPress={handleKeyPress} keyColors={keyColors} />
-      <Text style={styles.newGameButtonText}>{gameMessage}</Text>
+      <Text>{gameMessage}</Text>
 
       {gameOver && (
-      <View style={styles.gameOverContainer}>
+      <View>
         <TouchableOpacity style={[styles.newGameButton, themedStyles.button]} onPress={handleNewGame}>
           <Text style={[themedStyles.buttonText, themedStyles.text, { color: playButtonTextColor }]}>
             New Game
@@ -142,19 +142,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  // gameOverContainer: {
-  //   margin: 'auto',
-  // },
   newGameButton: {
     paddingVertical: Responsive.scale(10),
     paddingHorizontal: Responsive.scale(20),
-    borderRadius: Responsive.scale(30), // Match Play button
-    marginTop: 20,  // Keep spacing consistent
-  },
-  // newGameButtonText: {
-  //   fontSize: 18,
-  //   color: 'white',
-  // }
+    borderRadius: Responsive.scale(30),
+    marginTop: 20,
+  }
 })
 
 export default GameScreen;

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import ThemeButtons from "@/components/ThemeButtons";
 import { Responsive } from "@/utils/responsive";
 import { useThemeStyles } from '@/hooks/useThemeStyles';
@@ -7,7 +7,11 @@ import { useThemeStyles } from '@/hooks/useThemeStyles';
 export default function HomeScreen() {
   const { themedStyles, playButtonTextColor } = useThemeStyles();
 
-  const navigation = useNavigation();
+  type RootStackParamList = {
+    game: undefined;
+  };
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const navigateToGame = () => {
     navigation.navigate('game');

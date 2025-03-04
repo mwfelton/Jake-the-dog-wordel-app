@@ -9,7 +9,7 @@ import { useTheme } from '@/contexts/ThemeContext';
 
 export default function TabLayout() {
   const { theme } = useTheme();
-  const colors = Colors[theme] || Colors.jake; // ✅ Ensure fallback is always Jake
+  const colors = Colors[theme] || Colors.jake;
 
   return (
     <Tabs
@@ -17,7 +17,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: colors.tabIconSelected,
         tabBarInactiveTintColor: colors.tabIconDefault,
         tabBarStyle: {
-          backgroundColor: colors.card, // ✅ Uses the correct theme color
+          backgroundColor: colors.card,
           ...Platform.select({
             ios: {
               position: 'absolute',
@@ -33,7 +33,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }: { color: string }) => ( // Explicitly type 'color' as string
+          tabBarIcon: ({ color }: { color: string }) => (
             <IconSymbol size={28} name="house.fill" color={color} />
           ),
         }}
@@ -42,7 +42,7 @@ export default function TabLayout() {
         name="game"
         options={{
           title: 'Game',
-          tabBarIcon: ({ color }: { color: string }) => ( // Explicitly type 'color' as string
+          tabBarIcon: ({ color }: { color: string }) => (
             <IconSymbol size={28} name="sword" color={color} />
           ),
         }}
@@ -51,7 +51,7 @@ export default function TabLayout() {
         name="user"
         options={{
           title: 'User',
-          tabBarIcon: ({ color }: { color: string }) => ( // Explicitly type 'color' as string
+          tabBarIcon: ({ color }: { color: string }) => (
             <IconSymbol size={28} name="person" color={color} />
           ),
         }}
